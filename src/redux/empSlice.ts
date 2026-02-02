@@ -17,6 +17,17 @@ const initialData: Employee[] = [
 ]
 type Mode = "" | "register" | "update" | "delete" | "reset"
 
+export interface ModeItems {
+    id: Mode;
+    label: string;
+}
+
+export const modes: ModeItems[] = [
+    {id: "register", label: "Register"},
+    {id: "update", label: "Update"},
+    {id: "delete", label: "Delete"},
+    {id: "reset", label: "Reset"},
+]
 
 interface EmpState {
     mode: Mode,
@@ -51,9 +62,12 @@ const empSlice = createSlice({
                 ...state.infos,
                 {...action.payload, id: String(nextId)},
             ];
+        },
+        changeMode(state: EmpState, action: PayloadAction<Mode>) {
+            state.mode = action.payload;
         }
     }
 })
 
-export const {selectId, registerEmp} = empSlice.actions;
+export const {selectId, registerEmp, changeMode} = empSlice.actions;
 export default empSlice.reducer;
