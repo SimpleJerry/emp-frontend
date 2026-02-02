@@ -1,6 +1,6 @@
-import {createSlice} from "@reduxjs/toolkit";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
-interface Employee {
+export interface Employee {
     id: string;
     name: string;
     age: number;
@@ -15,21 +15,45 @@ const initialData: Employee[] = [
     {id: "3", name: 'Sue', age: 35, job: "frontend", language: "javascript", pay: 1},
     {id: "4", name: 'Susan', age: 35, job: "backend", language: "java", pay: 1},
 ]
+type Mode = "" | "register" | "update" | "delete" | "reset"
 
-const initialState = {
+
+interface EmpState {
+    mode: Mode,
+    selectedId: string,
+    upInfo: Employee | null,
+    infos: Employee[],
+    error: string | null,
+    loading: boolean,
+}
+
+const initialState: EmpState = {
     mode: "",
     selectedId: "",
     upInfo: null,
     infos: initialData,
-    errors: null,
+    error: null,
     loading: false,
 }
 
 const empSlice = createSlice({
     name: "empSlice",
     initialState,
-    reducers: {}
+    reducers: {
+        selectId(state: EmpState, action: PayloadAction<string>) {
+            console.log("selectId", action.payload)
+            state.selectedId = action.payload;
+        },
+        registerEmp(state: EmpState, action: PayloadAction<Employee>) {
+            const nextId = state.infos.length ?
+                Math.max(...state.infos.map(obj => Number(obj.id))) + 1 : 1;
+            state.infos = [
+                ...state.infos,
+                {...action.payload, id: String(nextId)},
+            ];
+        }
+    }
 })
 
-export const {} = empSlice.actions;
+export const {selectId, registerEmp} = empSlice.actions;
 export default empSlice.reducer;

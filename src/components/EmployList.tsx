@@ -2,12 +2,36 @@ import React from 'react';
 import InforTable from "@/components/InforTable";
 import {useSelector} from "react-redux";
 import {RootState} from "@/redux/store";
+import {selectId} from "@/redux/empSlice";
+import {useDispatch} from "react-redux";
+import styled from "styled-components";
+
+const Button = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 20px;
+`
+
 
 const EmployList = () => {
-    const {infos} = useSelector((state:RootState) => state.emp)
+    const {infos} = useSelector((state: RootState) => state.emp);
+    const dispatch = useDispatch();
     return (
         <>
-            {infos.map((info, index) => (<div key={info.id}>{info.name}</div>))}
+            <Button>
+                {infos.map((info) => (
+                    <button
+                        key={info.id}
+                        onClick={() => dispatch(selectId(info.id))}
+                    >
+                        {info.name}
+                    </button>))
+                }
+            </Button>
+
             <InforTable/>
         </>
     );
