@@ -6,7 +6,7 @@ import {selectId} from "@/redux/empSlice";
 import {useDispatch} from "react-redux";
 import styled from "styled-components";
 
-const Button = styled.div`
+export const Buttons = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -21,7 +21,7 @@ const EmployList = () => {
     const dispatch = useDispatch();
     return (
         <>
-            <Button>
+            <Buttons>
                 {infos.map((info) => (
                     <button
                         key={info.id}
@@ -30,7 +30,7 @@ const EmployList = () => {
                         {info.name}
                     </button>))
                 }
-            </Button>
+            </Buttons>
 
             <InforTable/>
         </>
