@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import InforTable from "@/components/InforTable";
 import {useSelector} from "react-redux";
-import {RootState} from "@/redux/store";
+import {RootState, RootDispatch} from "@/redux/store";
 import {selectId} from "@/redux/empSlice";
 import {useDispatch} from "react-redux";
 import styled from "styled-components";
+import {fetchGetEmployeeInfos} from "@/redux/empApi";
 
 export const Buttons = styled.div`
     display: flex;
@@ -18,7 +19,10 @@ export const Buttons = styled.div`
 
 const EmployList = () => {
     const {infos} = useSelector((state: RootState) => state.emp);
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<RootDispatch>();
+    useEffect(() => {
+        dispatch(fetchGetEmployeeInfos());
+    }, [dispatch])
     return (
         <>
             <Buttons>
