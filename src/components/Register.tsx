@@ -1,6 +1,6 @@
 "use client"
 import React, {ChangeEvent, FormEvent, useState} from 'react';
-import {Employee} from "@/types/types";
+import {Employee} from "@/types/type";
 import {useDispatch} from "react-redux";
 import styled from "styled-components";
 import {tempEmp} from "@/redux/empSlice";
