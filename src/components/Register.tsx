@@ -4,6 +4,7 @@ import {Employee} from "@/redux/empSlice";
 import {useDispatch} from "react-redux";
 import {registerEmp} from "@/redux/empSlice";
 import styled from "styled-components";
+import {tempEmp} from "@/redux/empSlice";
 
 export const Form = styled.form`
     display: flex;
@@ -32,12 +33,9 @@ export const Input = styled.input`
     font-size: 14px;
 `
 
-const initialState = {
-    id: "", name: "", age: 0, job: "", language: "", pay: 0
-}
 
 const Register = () => {
-    const [empInfo, setEmpInfo] = useState<Employee>(initialState);
+    const [empInfo, setEmpInfo] = useState<Employee>(tempEmp);
     const dispatch = useDispatch();
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const {name, value} = e.target;
@@ -46,7 +44,7 @@ const Register = () => {
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         dispatch(registerEmp(empInfo));
-        setEmpInfo(initialState);
+        setEmpInfo(tempEmp);
     }
     return (
         <Form onSubmit={handleSubmit}>

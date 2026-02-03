@@ -9,6 +9,10 @@ export interface Employee {
     pay: number;
 }
 
+
+export const tempEmp: Employee = {
+    id: "", name: "", age: 0, job: "", language: "", pay: 0
+}
 const initialData: Employee[] = [
     {id: "1", name: 'John', age: 35, job: "frontend", language: "react", pay: 1},
     {id: "2", name: 'Peter', age: 35, job: "backend", language: "python", pay: 1},
@@ -32,7 +36,7 @@ export const modes: ModeItems[] = [
 interface EmpState {
     mode: Mode,
     selectedId: string,
-    upInfo: Employee | null,
+    upInfo: Employee,
     infos: Employee[],
     error: string | null,
     loading: boolean,
@@ -41,7 +45,7 @@ interface EmpState {
 const initialState: EmpState = {
     mode: "",
     selectedId: "",
-    upInfo: null,
+    upInfo: tempEmp,
     infos: initialData,
     error: null,
     loading: false,
@@ -52,8 +56,9 @@ const empSlice = createSlice({
     initialState,
     reducers: {
         selectId(state: EmpState, action: PayloadAction<string>) {
-            console.log("selectId", action.payload)
-            state.selectedId = action.payload;
+            // console.log("selectId：", action.payload)
+            state.selectedId = action.payload
+            state.upInfo = state.infos.filter(info => info.id === action.payload)[0]
         },
         registerEmp(state: EmpState, action: PayloadAction<Employee>) {
             const nextId = state.infos.length ?
@@ -62,12 +67,32 @@ const empSlice = createSlice({
                 ...state.infos,
                 {...action.payload, id: String(nextId)},
             ];
+            state.upInfo = {...action.payload, id: String(nextId)};
         },
         changeMode(state: EmpState, action: PayloadAction<Mode>) {
+            if (action.payload === "delete") {
+                state.infos = state.infos.filter(info => info.id !== state.selectedId);
+                state.upInfo = tempEmp;
+            }
             state.mode = action.payload;
+        },
+        updateEmp(state: EmpState, action: PayloadAction<Employee>) {
+            state.infos = state.infos.map(info =>
+                (
+                    info.id === state.selectedId ?
+                        {...action.payload, id: String(info.id)}
+                        : info
+                )
+            )
+        },
+        deleteEmp(state: EmpState, action: PayloadAction<Employee>) {
+            state.infos = state.infos.map(info =>
+                info.id === state.selectedId ?
+                    {...action.payload, id: String(info.id)}
+                    : info)
         }
     }
 })
 
-export const {selectId, registerEmp, changeMode} = empSlice.actions;
+export const {selectId, registerEmp, changeMode, updateEmp} = empSlice.actions;
 export default empSlice.reducer;
