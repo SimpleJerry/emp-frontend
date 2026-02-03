@@ -1,5 +1,10 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {fetchGetEmployeeInfos, fetchPostEmployeeInfos, fetchPutEmployeeInfos} from "@/redux/empApi";
+import {
+    fetchDeleteEmployeeInfos,
+    fetchGetEmployeeInfos,
+    fetchPostEmployeeInfos,
+    fetchPutEmployeeInfos
+} from "@/redux/empApi";
 import {Employee} from "@/types/type";
 
 
@@ -7,7 +12,7 @@ export const tempEmp: Employee = {
     id: "", name: "", age: 0, job: "", language: "", pay: 0
 }
 
-type Mode = "" | "register" | "update" | "delete" | "reset"
+export type Mode = "" | "register" | "update" | "delete" | "reset"
 
 export interface ModeItems {
     id: Mode;
@@ -49,10 +54,6 @@ const empSlice = createSlice({
             state.upInfo = state.infos.filter(info => info.id === action.payload)[0]
         },
         changeMode(state: EmpState, action: PayloadAction<Mode>) {
-            if (action.payload === "delete") {
-                state.infos = state.infos.filter(info => info.id !== state.selectedId);
-                state.upInfo = tempEmp;
-            }
             state.mode = action.payload;
         },
     },
@@ -98,6 +99,23 @@ const empSlice = createSlice({
                 state.upInfo = action.payload;
             })
             .addCase(fetchPutEmployeeInfos.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload ?? "load failed";
+            })
+            .addCase(fetchDeleteEmployeeInfos.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(fetchDeleteEmployeeInfos.fulfilled, (state) => {
+                state.loading = false;
+                console.log("delete", state.mode)
+                if (state.mode == "delete") {
+                    state.infos = state.infos.filter(info => info.id !== state.selectedId);
+                    state.upInfo = tempEmp;
+
+                }
+            })
+            .addCase(fetchDeleteEmployeeInfos.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload ?? "load failed";
             })

@@ -30,7 +30,7 @@ export const fetchPostEmployeeInfos =
                 console.log("response:", response.data);
                 return response.data;
             } catch {
-                return thunkAPI.rejectWithValue("Failed to load data");
+                return thunkAPI.rejectWithValue("Failed to insert data");
             }
         }
     )
@@ -46,7 +46,24 @@ export const fetchPutEmployeeInfos =
                 console.log("response:", response.data);
                 return response.data;
             } catch {
-                return thunkAPI.rejectWithValue("Failed to load data");
+                return thunkAPI.rejectWithValue("Failed to update data");
+            }
+        }
+    )
+
+
+// delete info
+export const fetchDeleteEmployeeInfos =
+    createAsyncThunk<Employee, Employee, { rejectValue: string }>(
+        "fetchDeleteEmployeeInfos",
+        async (empInfo, thunkAPI) => {
+            try {
+                console.log("body:", empInfo);
+                const response = await axios.delete(`${API_URL}/app/emp/${empInfo.id}`);
+                console.log("response:", response.data);
+                return response.data;
+            } catch {
+                return thunkAPI.rejectWithValue("Failed to delete data");
             }
         }
     )

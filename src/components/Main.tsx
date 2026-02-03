@@ -7,13 +7,22 @@ import {ModeItems} from "@/redux/empSlice";
 import {useDispatch, useSelector} from "react-redux";
 import {changeMode} from "@/redux/empSlice";
 import {Buttons} from "@/components/EmployList";
-import {RootState} from "@/redux/store";
+import {RootDispatch, RootState} from "@/redux/store";
+import {fetchDeleteEmployeeInfos} from "@/redux/empApi";
+import {Mode} from "@/redux/empSlice"
 
 
 const Main = () => {
     const [modeItems] = useState<ModeItems[]>(modes)
-    const {mode} = useSelector((state: RootState) => state.emp);
-    const dispatch = useDispatch();
+    const {mode, upInfo} = useSelector((state: RootState) => state.emp);
+    const dispatch = useDispatch<RootDispatch>();
+    const handleMode = (id: Mode) => {
+        dispatch(changeMode(id));
+        if (id === "delete") {
+            console.log("id", upInfo);
+            dispatch(fetchDeleteEmployeeInfos(upInfo));
+        }
+    }
     return (
         <>
             <div>
@@ -24,7 +33,7 @@ const Main = () => {
                     <button
                         key={item.id}
                         onClick={() => {
-                            dispatch(changeMode(item.id))
+                            handleMode(item.id)
                         }}
                     >
                         {item.label}
