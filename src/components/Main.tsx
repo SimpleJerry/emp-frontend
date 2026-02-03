@@ -19,8 +19,7 @@ const Main = () => {
     const handleMode = (id: Mode) => {
         dispatch(changeMode(id));
         if (id === "delete") {
-            console.log("id", upInfo);
-            dispatch(fetchDeleteEmployeeInfos(upInfo));
+            dispatch(fetchDeleteEmployeeInfos(upInfo.id));
         }
     }
     return (

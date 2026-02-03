@@ -108,7 +108,6 @@ const empSlice = createSlice({
             })
             .addCase(fetchDeleteEmployeeInfos.fulfilled, (state) => {
                 state.loading = false;
-                console.log("delete", state.mode)
                 if (state.mode == "delete") {
                     state.infos = state.infos.filter(info => info.id !== state.selectedId);
                     state.upInfo = tempEmp;
