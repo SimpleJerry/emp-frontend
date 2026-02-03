@@ -58,7 +58,7 @@ const empSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase(fetchGetEmployeeInfos.pending, (state, action) => {
+            .addCase(fetchGetEmployeeInfos.pending, (state) => {
                 state.loading = true;
                 state.error = null;
             })
@@ -70,7 +70,7 @@ const empSlice = createSlice({
                 state.loading = false;
                 state.error = action.payload ?? "load failed";
             })
-            .addCase(fetchPostEmployeeInfos.pending, (state, action) => {
+            .addCase(fetchPostEmployeeInfos.pending, (state) => {
                 state.loading = true;
                 state.error = null;
             })
@@ -82,7 +82,7 @@ const empSlice = createSlice({
                 state.loading = false;
                 state.error = action.payload ?? "load failed";
             })
-            .addCase(fetchPutEmployeeInfos.pending, (state, action) => {
+            .addCase(fetchPutEmployeeInfos.pending, (state) => {
                 state.loading = true;
                 state.error = null;
             })
