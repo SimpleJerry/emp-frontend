@@ -1,10 +1,12 @@
 "use client"
 import React, {ChangeEvent, FormEvent, useState} from 'react';
-import {Employee} from "@/redux/empSlice";
+import {Employee} from "@/types/types";
 import {useDispatch} from "react-redux";
-import {registerEmp} from "@/redux/empSlice";
 import styled from "styled-components";
 import {tempEmp} from "@/redux/empSlice";
+import {fetchGetEmployeeInfos, fetchPostEmployeeInfos} from "@/redux/empApi";
+import {RootDispatch} from "@/redux/store";
+
 
 export const Form = styled.form`
     display: flex;
@@ -36,15 +38,16 @@ export const Input = styled.input`
 
 const Register = () => {
     const [empInfo, setEmpInfo] = useState<Employee>(tempEmp);
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<RootDispatch>();
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const {name, value} = e.target;
         setEmpInfo(prev => ({...prev, [name]: value}));
     }
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        dispatch(registerEmp(empInfo));
+        dispatch(fetchPostEmployeeInfos(empInfo));
         setEmpInfo(tempEmp);
+        dispatch(fetchGetEmployeeInfos());
     }
     return (
         <Form onSubmit={handleSubmit}>
@@ -52,6 +55,7 @@ const Register = () => {
                 <Input
                     type="text"
                     name="name"
+                    value={empInfo.name}
                     onChange={handleChange}
                 />
             </Label>
@@ -59,6 +63,7 @@ const Register = () => {
                 <Input
                     type="number"
                     name="age"
+                    value={empInfo.age}
                     onChange={handleChange}
                 />
             </Label>
@@ -66,6 +71,7 @@ const Register = () => {
                 <Input
                     type="text"
                     name="job"
+                    value={empInfo.job}
                     onChange={handleChange}
                 />
             </Label>
@@ -73,6 +79,7 @@ const Register = () => {
                 <Input
                     type="text"
                     name="language"
+                    value={empInfo.language}
                     onChange={handleChange}
                 />
             </Label>
@@ -80,6 +87,7 @@ const Register = () => {
                 <Input
                     type="number"
                     name="pay"
+                    value={empInfo.pay}
                     onChange={handleChange}
                 />
             </Label>

@@ -1,27 +1,29 @@
 import React, {ChangeEvent, FormEvent, useEffect, useState} from 'react';
 import {Form, Input, Label} from "@/components/Register";
 import {useDispatch, useSelector} from "react-redux";
-import {Employee, tempEmp, updateEmp} from "@/redux/empSlice";
-import {RootState} from "@/redux/store";
+import {tempEmp} from "@/redux/empSlice";
+import {Employee} from "@/types/types";
+import {RootDispatch, RootState} from "@/redux/store";
+import {fetchGetEmployeeInfos, fetchPutEmployeeInfos} from "@/redux/empApi";
 
 const Update = () => {
     const {upInfo} = useSelector((state: RootState) => state.emp);
     const [empInfo, setEmpInfo] = useState<Employee>(upInfo);
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<RootDispatch>();
 
     useEffect(() => {
         setEmpInfo(upInfo);
     }, [upInfo]);
-    
+
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-        console.log(e.target.value);
         const {name, value} = e.target;
         setEmpInfo(prev => ({...prev, [name]: value}));
     }
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        dispatch(updateEmp(empInfo));
+        dispatch(fetchPutEmployeeInfos(empInfo));
         setEmpInfo(tempEmp);
+        dispatch(fetchGetEmployeeInfos());
     }
     return (
         <Form onSubmit={handleSubmit}>
