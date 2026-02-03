@@ -3,7 +3,7 @@ import {useSelector} from "react-redux";
 import {RootState} from "@/redux/store";
 import styled from "styled-components";
 
-const Table = styled.div`
+const Table = styled.table`
     width: 450px;
     margin: 0 auto;
     border-collapse: collapse;
