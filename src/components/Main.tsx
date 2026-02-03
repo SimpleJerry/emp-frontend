@@ -8,8 +8,6 @@ import {useDispatch, useSelector} from "react-redux";
 import {changeMode} from "@/redux/empSlice";
 import {Buttons} from "@/components/EmployList";
 import {RootState} from "@/redux/store";
-import Delete from "@/components/Delete";
-import Reset from "@/components/Reset";
 
 
 const Main = () => {
@@ -36,8 +34,6 @@ const Main = () => {
             <div>
                 {mode === "register" && <Register/>}
                 {mode === "update" && <Update/>}
-                {mode === "delete" && <Delete/>}
-                {mode === "reset" && <Reset/>}
             </div>
         </>
     );
