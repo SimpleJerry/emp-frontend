@@ -2,7 +2,7 @@ import React, {ChangeEvent, FormEvent, useEffect, useState} from 'react';
 import {Form, Input, Label} from "@/components/Register";
 import {useDispatch, useSelector} from "react-redux";
 import {tempEmp} from "@/redux/empSlice";
-import {Employee} from "@/types/types";
+import {Employee} from "@/types/type";
 import {RootDispatch, RootState} from "@/redux/store";
 import {fetchGetEmployeeInfos, fetchPutEmployeeInfos} from "@/redux/empApi";
 

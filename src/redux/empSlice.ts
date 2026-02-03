@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {fetchGetEmployeeInfos, fetchPostEmployeeInfos, fetchPutEmployeeInfos} from "@/redux/empApi";
-import {Employee} from "@/types/types";
+import {Employee} from "@/types/type";
 
 
 export const tempEmp: Employee = {

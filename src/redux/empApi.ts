@@ -1,6 +1,6 @@
 import axios from "axios";
 import {createAsyncThunk} from "@reduxjs/toolkit";
-import {Employee} from "@/types/types";
+import {Employee} from "@/types/type";
 
 const API_URL = "http://localhost:3001";
 
