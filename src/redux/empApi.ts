@@ -113,6 +113,7 @@ export const fetchPutEmployeeInfos =
                     {
                         query: mutation,
                         variables: {
+                            id: String(obj.id),
                             input: {
                                 name: obj.name,
                                 age: Number(obj.age),
