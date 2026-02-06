@@ -3,7 +3,7 @@ import {createAsyncThunk} from "@reduxjs/toolkit";
 import {Employee} from "@/types/type";
 
 const API_URL = "http://localhost:3001";
-const GRAPH_URL = "http://localhost:3001/graphql";
+const GRAPH_URL = "http://localhost:3001/app/graphql/";
 
 type GraphQLResponse<T> = {
     data?: T;
