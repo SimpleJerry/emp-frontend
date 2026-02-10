@@ -1,3 +1,7 @@
+# About this Project
+
+React Frontend of Employee Management Project used RestfulAPI style.
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
