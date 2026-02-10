@@ -18,11 +18,11 @@ export const Buttons = styled.div`
 
 
 const EmployList = () => {
-    const {infos} = useSelector((state: RootState) => state.emp);
+    const {infos, upInfo} = useSelector((state: RootState) => state.emp);
     const dispatch = useDispatch<RootDispatch>();
     useEffect(() => {
         dispatch(fetchGetEmployeeInfos());
-    }, [dispatch])
+    }, [dispatch, upInfo])
     return (
         <>
             <Buttons>
